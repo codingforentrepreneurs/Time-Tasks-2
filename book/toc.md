@@ -4,12 +4,17 @@
 # Table of Contents
 
 ## Chapter 1 - Introduction &  Installations
+### 1. Introduction
 
-1. Install Python 3.8+
+### 2. Skill Requirements
 
-2. Install Redis
-    - Mac / Linux guide
-    - Windows guide
+### 3. Installations
+    1. Install Python 3.8+
+
+    2. Install Redis
+        - macOS 
+        - Linux
+        - Windows
 
 ## Chapter 2 - Setup Project
 
