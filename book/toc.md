@@ -9,12 +9,17 @@
 ### 2. Skill Requirements
 
 ### 3. Installations
-    1. Install Python 3.8+
+#### 3.1. Install Python 3.8+
 
-    2. Install Redis
-        - macOS 
-        - Linux
-        - Windows
+#### 3.2 Virtual Environments
+1. `venv`
+2. `pipenv`
+
+#### 3.3 Install Redis
+1. macOS 
+2. Linux
+3. Windows
+
 
 ## Chapter 2 - Setup Project
 
