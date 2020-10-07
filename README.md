@@ -17,13 +17,16 @@ In this project, we're going to learn all about the popular python library [Cele
 - Redis 6+
 
 
-## The Book.
+## The Book. 
+#### [Website](https://codingforentrepreneurs.github.io/Time-Tasks-2/)
+#### [Notebooks](./nbs)
 For time & tasks, I'll be writing a corresponding book. In the past, I would write private notes to help me with the recording process. For this series, I have decided to publish these notes as a "work-in-progress" book right here on github. Depending on how everyone likes the book portion, I'll consider fully publishing the book into more consumable formats. Do you like the book? Let me know -> [@joincfe](https://twitter.com/joincfe).
 
-For a live version of the book you have 2 options:
+For a live version of the book you have 2 options (currently):
 
 - In `nbs/` as Jupyter notebooks
 - At [this link](https://codingforentrepreneurs.github.io/Time-Tasks-2/) as an html page (recommended for most)
 
-## The Videos.
+## The Videos. 
+#### [Website](https://www.codingforentrepreneurs.com/projects/time-tasks-2)
 The videos will loosely follow the content in the book. The major difference will be the context that's discussed while building the project. Personally, I think the book will only scratch the surface of what's in the videos.
