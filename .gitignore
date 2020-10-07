@@ -1,3 +1,6 @@
+Pipfile.lock
+nbs/_build
+
 .DS_Store
 *.code-workspace 
 
