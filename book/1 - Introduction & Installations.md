@@ -6,7 +6,8 @@ To accomplish all of this, it is best to use a worker process. This is a separat
 
 So, why do we need this?
 
-#### 1. Efficiency
+**Efficiency**
+
 There are cases were users needs things *right now* and there are times where they do not. Using Celery with Django allows you to offload tasks users don't need *literally right now*.
 
 Here's a few examples of items that you can potentially offload:
@@ -37,7 +38,7 @@ Celery also allows us to *schedule* tasks. This means we can run certain tasks w
 This book (and accompanying video series) covers how to implement celery in a Django project so you can effectively do what's above.
 
 
-## Skill Requirements
+## 2. Skill Requirements
 
 To get the most out of this book, you should know the following Django & Python concepts:
 
@@ -58,15 +59,16 @@ Now, let's get your system installed.
 
 
 
-## Installations
-If you have the skill requirements, you can probably skip this section. We'll be showing you the basics of:
+## 3. Installations
+Assuming you have the skill requirements for this book, you might want to just skip to the redis installation portion. You will need `redis` installed locally for this book (and for `celery`) although `rabbitmq` is another valid option. 
 
 - Installing Python
 - Creating & Activating a Virtual Environment
 - Installing Python Packages (`pip install`)
+- Installing Redis (macOS, Windows, Linux)
 
 
-### 1. Install Python 3+
+### 3.1. Install Python 3+
 
 You can download python on [https://www.python.org/downloads/](https://www.python.org/downloads/). That's the easiest way on all platforms. 
 
@@ -80,12 +82,12 @@ Below are a few blog posts on our website that are useful references:
 
 
 
-### 2. Using Virtual Environments
+### 3.2. Using Virtual Environments
 Once you have Python installed, you'll need to use a virtual environment for your project. Virtual environments keep all of the software requirements (ie dependency versions) isolated from other projects. 
 
 For better isolation, you can consider `Docker` but that's not required here.
 
-#### 2.1 `venv`
+#### 1 `venv`
 Here's the easies way to create a virtual environment using Python's built-in `venv` module.
 
 ```
@@ -103,7 +105,7 @@ A few key commands:
 - Installed packages `pip freeze`
 - Save package history (to re-install/re-create current environment): `pip freeze > requirements.txt`
 
-#### 2.2 `pipenv`
+#### 2 `pipenv`
 
 [pipenv](https://github.com/pypa/pipenv) (https://github.com/pypa/pipenv) is another very popular way to create an manage your virtual environments.
 
@@ -132,3 +134,5 @@ A few key commands:
 - Remove packages (activate first) `pipenv uninstall requests` 
 - Installed packages `pipenv run pip freeze`
 - Save package history (to re-install/re-create current environment): `pipenv run pip freeze > requirements.txt`
+
+
