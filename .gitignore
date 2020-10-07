@@ -1,5 +1,6 @@
 Pipfile.lock
 nbs/_build
+book/
 
 .DS_Store
 *.code-workspace 
