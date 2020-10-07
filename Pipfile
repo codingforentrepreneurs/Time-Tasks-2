@@ -8,6 +8,7 @@ verify_ssl = true
 [packages]
 jupyter-book = "*"
 jupyter = "*"
+ghp-import = "*"
 
 [requires]
 python_version = "3.8"
