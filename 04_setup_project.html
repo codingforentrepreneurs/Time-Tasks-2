@@ -235,23 +235,18 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#setup-virtual-environment">
-   4.1. Setup Virtual Environment
+  <a class="reference internal nav-link" href="#activate-virtual-environment">
+   4.1. Activate Virtual Environment
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#install-django">
-   4.2. Install Django
+  <a class="reference internal nav-link" href="#install-required-packages">
+   4.2. Install Required Packages
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#start-django-project">
    4.3. Start Django Project
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#install-celery">
-   4.4. Install Celery
   </a>
  </li>
 </ul>
@@ -267,17 +262,60 @@
                 
   <div class="section" id="setup-project">
 <h1><span class="section-number">4. </span>Setup Project<a class="headerlink" href="#setup-project" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="setup-virtual-environment">
-<h2><span class="section-number">4.1. </span>Setup Virtual Environment<a class="headerlink" href="#setup-virtual-environment" title="Permalink to this headline">¶</a></h2>
+<p>Naturally, we need a django project setup. Let’s do that here.</p>
+<div class="section" id="activate-virtual-environment">
+<h2><span class="section-number">4.1. </span>Activate Virtual Environment<a class="headerlink" href="#activate-virtual-environment" title="Permalink to this headline">¶</a></h2>
+<p>We did this <a class="reference internal" href="02_installations.html#install-using-virtualenv"><span class="std std-ref">Using Virtual Environments</span></a></p>
 </div>
-<div class="section" id="install-django">
-<h2><span class="section-number">4.2. </span>Install Django<a class="headerlink" href="#install-django" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="install-required-packages">
+<h2><span class="section-number">4.2. </span>Install Required Packages<a class="headerlink" href="#install-required-packages" title="Permalink to this headline">¶</a></h2>
+<p>The required packages are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Django==3.1.2</span></code> <a class="reference external" href="https://www.djangoproject.com/">docs</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">celery</span></code> <a class="reference external" href="https://docs.celeryproject.org/en/stable/getting-started/introduction.html">docs</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">redis</span></code> <a class="reference external" href="https://github.com/andymccurdy/redis-py">repo</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">django-celery-beat</span></code> <a class="reference external" href="https://github.com/celery/django-celery-beat">repo</a> | <a class="reference external" href="https://django-celery-beat.readthedocs.io/en/latest/">docs</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">django-celery-results</span></code> <a class="reference external" href="https://github.com/celery/django-celery-results">repo</a> | <a class="reference external" href="https://django-celery-results.readthedocs.io/en/latest/">docs</a></p></li>
+</ul>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd path/to/virtualenv/dir/</span>
+</pre></div>
+</div>
+<p>Activate virtual environment</p>
+<p>mac/linux</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">source bin/activate</span>
+</pre></div>
+</div>
+<p>windows</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">.</span>\<span class="n">Scripts</span>\<span class="n">activate</span>
+</pre></div>
+</div>
+<p>To install,:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install django==3.1.2 celery redis django-celery-beat django-celery-results</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>If you’re using <code class="docutils literal notranslate"><span class="pre">pipenv</span></code>: <code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">install</span> <span class="pre">django==3.1.2</span> <span class="pre">celery</span> <span class="pre">redis</span> <span class="pre">django-celery-beat</span> <span class="pre">django-celery-results</span></code></p>
+</div></blockquote>
+<blockquote>
+<div><p>If you’re working in <code class="docutils literal notranslate"><span class="pre">jupyter</span></code> (not recommended at this point in the project):<code class="docutils literal notranslate"> <span class="pre">!pip</span> <span class="pre">install</span> <span class="pre">django==3.1.2</span> <span class="pre">celery</span> <span class="pre">redis</span> <span class="pre">django-celery-beat</span> <span class="pre">django-celery-results</span></code></p>
+</div></blockquote>
 </div>
 <div class="section" id="start-django-project">
 <h2><span class="section-number">4.3. </span>Start Django Project<a class="headerlink" href="#start-django-project" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">django-admin startproject time_tasks .</span>
+</pre></div>
 </div>
-<div class="section" id="install-celery">
-<h2><span class="section-number">4.4. </span>Install Celery<a class="headerlink" href="#install-celery" title="Permalink to this headline">¶</a></h2>
+<p>Let’s confirm it’s installed:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ls</span>
+</pre></div>
+</div>
+<p>Result should be:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">time_tasks</span> 
+</pre></div>
+</div>
+<blockquote>
+<div><p>You may see virtual environment files and folders as well.</p>
+</div></blockquote>
 </div>
 </div>
 
