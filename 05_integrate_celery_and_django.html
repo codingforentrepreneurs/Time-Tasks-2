@@ -235,13 +235,48 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#base-celery-configuration">
-   5.1. Base Celery Configuration
+  <a class="reference internal nav-link" href="#create-default-folders-files">
+   5.1. Create default folders/files:
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#celery-worker-celery-beat-scheduler">
-   5.2. Celery Worker &amp; Celery Beat Scheduler
+  <a class="reference internal nav-link" href="#in-time-tasks-celery-init-py">
+   5.2. In
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     time_tasks/celery/__init__.py
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#in-time-tasks-celery-conf-py">
+   5.3. In
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     time_tasks/celery/conf.py
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#in-time-tasks-init-py">
+   5.4. In
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     time_tasks/__init__.py
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#in-time-tasks-settings-py">
+   5.5. In
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     time_tasks/settings.py
+    </span>
+   </code>
   </a>
  </li>
 </ul>
@@ -257,11 +292,80 @@
                 
   <div class="section" id="integrate-celery-django">
 <h1><span class="section-number">5. </span>Integrate Celery &amp; Django<a class="headerlink" href="#integrate-celery-django" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="base-celery-configuration">
-<h2><span class="section-number">5.1. </span>Base Celery Configuration<a class="headerlink" href="#base-celery-configuration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="create-default-folders-files">
+<h2><span class="section-number">5.1. </span>Create default folders/files:<a class="headerlink" href="#create-default-folders-files" title="Permalink to this headline">¶</a></h2>
+<p>Create a folder in <code class="docutils literal notranslate"><span class="pre">time_tasks</span></code> called <code class="docutils literal notranslate"><span class="pre">celery</span></code> and add <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">conf.py</span></code> files.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">time_tasks</span><span class="o">/</span><span class="n">celery</span>
+<span class="n">echo</span> <span class="s2">&quot;&quot;</span> <span class="o">&gt;</span> <span class="n">time_tasks</span><span class="o">/</span><span class="n">celery</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
+<span class="n">echo</span> <span class="s2">&quot;&quot;</span> <span class="o">&gt;</span> <span class="n">time_tasks</span><span class="o">/</span><span class="n">celery</span><span class="o">/</span><span class="n">conf</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
 </div>
-<div class="section" id="celery-worker-celery-beat-scheduler">
-<h2><span class="section-number">5.2. </span>Celery Worker &amp; Celery Beat Scheduler<a class="headerlink" href="#celery-worker-celery-beat-scheduler" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="in-time-tasks-celery-init-py">
+<h2><span class="section-number">5.2. </span>In <code class="docutils literal notranslate"><span class="pre">time_tasks/celery/__init__.py</span></code><a class="headerlink" href="#in-time-tasks-celery-init-py" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">from</span> <span class="nn">celery</span> <span class="kn">import</span> <span class="n">Celery</span>
+<span class="kn">from</span> <span class="nn">celery.schedules</span> <span class="kn">import</span> <span class="n">crontab</span>
+
+<span class="c1"># You can use rabbitmq instead here.</span>
+<span class="n">BASE_REDIS_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;REDIS_URL&#39;</span><span class="p">,</span> <span class="s1">&#39;redis://localhost:6379&#39;</span><span class="p">)</span>
+
+<span class="c1"># set the default Django settings module for the &#39;celery&#39; program.</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;DJANGO_SETTINGS_MODULE&#39;</span><span class="p">,</span> <span class="s1">&#39;time_tasks.settings&#39;</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Celery</span><span class="p">(</span><span class="s1">&#39;time_tasks&#39;</span><span class="p">)</span>
+
+<span class="c1"># Using a string here means the worker doesn&#39;t have to serialize</span>
+<span class="c1"># the configuration object to child processes.</span>
+<span class="c1"># - namespace=&#39;CELERY&#39; means all celery-related configuration keys</span>
+<span class="c1">#   should have a `CELERY_` prefix.</span>
+<span class="n">app</span><span class="o">.</span><span class="n">config_from_object</span><span class="p">(</span><span class="s1">&#39;django.conf:settings&#39;</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="s1">&#39;CELERY&#39;</span><span class="p">)</span>
+
+<span class="c1"># Load task modules from all registered Django app configs.</span>
+<span class="n">app</span><span class="o">.</span><span class="n">autodiscover_tasks</span><span class="p">()</span>
+
+<span class="n">app</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">broker_url</span> <span class="o">=</span> <span class="n">BASE_REDIS_URL</span>
+
+<span class="c1"># this allows you to schedule items in the Django admin.</span>
+<span class="n">app</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">beat_schedule</span> <span class="o">=</span> <span class="s1">&#39;django_celery_beat.schedulers:DatabaseScheduler&#39;</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">time_tasks.settings</span></code> in <code class="docutils literal notranslate"><span class="pre">os.environ.setdefault('DJANGO_SETTINGS_MODULE',</span> <span class="pre">'time_tasks.settings')</span></code> is also set in <code class="docutils literal notranslate"><span class="pre">manage.py</span></code> so, when in doubt, use the value in <code class="docutils literal notranslate"><span class="pre">manage.py</span></code> for your project. This is for our <code class="docutils literal notranslate"><span class="pre">celery</span></code> worker process. My Django project name is <code class="docutils literal notranslate"><span class="pre">time_tasks</span></code> so I use it for celery as well with <code class="docutils literal notranslate"><span class="pre">app</span> <span class="pre">=</span> <span class="pre">Celery('time_tasks')</span></code>.</p>
+</div></blockquote>
+</div>
+<div class="section" id="in-time-tasks-celery-conf-py">
+<h2><span class="section-number">5.3. </span>In <code class="docutils literal notranslate"><span class="pre">time_tasks/celery/conf.py</span></code><a class="headerlink" href="#in-time-tasks-celery-conf-py" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># This sets the django-celery-results backend</span>
+<span class="n">CELERY_RESULT_BACKEND</span> <span class="o">=</span> <span class="s1">&#39;django-db&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="in-time-tasks-init-py">
+<h2><span class="section-number">5.4. </span>In <code class="docutils literal notranslate"><span class="pre">time_tasks/__init__.py</span></code><a class="headerlink" href="#in-time-tasks-init-py" title="Permalink to this headline">¶</a></h2>
+<p>This file is next to <code class="docutils literal notranslate"><span class="pre">settings.py</span></code> and the <code class="docutils literal notranslate"><span class="pre">time_tasks/celery</span></code> folder created above.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
+
+<span class="c1"># This will make sure the app is always imported when</span>
+<span class="c1"># Django starts so that shared_task will use this app.</span>
+<span class="kn">from</span> <span class="nn">.celery</span> <span class="kn">import</span> <span class="n">app</span> <span class="k">as</span> <span class="n">celery_app</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;celery_app&#39;</span><span class="p">,)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="in-time-tasks-settings-py">
+<h2><span class="section-number">5.5. </span>In <code class="docutils literal notranslate"><span class="pre">time_tasks/settings.py</span></code><a class="headerlink" href="#in-time-tasks-settings-py" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">INSTALLED_APPS</span> <span class="o">+=</span> <span class="p">[</span>
+    <span class="s1">&#39;django_celery_beat,</span>
+    <span class="s1">&#39;django_celery_results,</span>
+<span class="p">]</span>
+
+<span class="kn">from</span> <span class="nn">.celery.conf</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
 </div>
 </div>
 
