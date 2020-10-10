@@ -7,11 +7,7 @@ sections:
 - file: 03_install_redis
 - file: 04_setup_project
 - file: 05_integrate_celery_and_django
-- file: 06_Django_App_&_Model
-- file: 07_using_celery_tasks
-- file: 08_scheduling_tasks_in_django
-- file: 09_web_scraping_with_django
-
-
-
-
+- file: 06_web_scraping_client
+- file: 07_create_and_use_celery_tasks
+- file: 08_Django_App_&_Model
+- file: 09_scheduling_tasks_in_django
