@@ -121,18 +121,18 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="06_Django_App_%26_Model.html">
-   6. Django App &amp; Model
+  <a class="reference internal" href="06_web_scraping_client.html">
+   6. Web Scraping Client
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="07_web_scraping_with_django.html">
-   7. Web Scraping in Django
+  <a class="reference internal" href="07_create_and_use_celery_tasks.html">
+   7. Create &amp; Use Celery Tasks
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="08_using_celery_tasks.html">
-   8. Using Celery Tasks
+  <a class="reference internal" href="08_Django_App_%26_Model.html">
+   8. Django  App &amp; Model
   </a>
  </li>
  <li class="toctree-l1">
@@ -243,10 +243,32 @@
   <a class="reference internal nav-link" href="#install-required-packages">
    4.2. Install Required Packages
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#install-packages-for-the-web-scraping-portion-of-this-book">
+     4.2.1. Install Packages for the web scraping portion of this book:
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#start-django-project">
    4.3. Start Django Project
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#create-django-app">
+   4.4. Create Django App
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#update-time-tasks-settings-py">
+   4.5. Update
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     time_tasks/settings.py
+    </span>
+   </code>
   </a>
  </li>
 </ul>
@@ -288,7 +310,7 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">django-celery-beat</span></code> <a class="reference external" href="https://github.com/celery/django-celery-beat">repo</a> | <a class="reference external" href="https://django-celery-beat.readthedocs.io/en/latest/">docs</a></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">django-celery-results</span></code> <a class="reference external" href="https://github.com/celery/django-celery-results">repo</a> | <a class="reference external" href="https://django-celery-results.readthedocs.io/en/latest/">docs</a></p></li>
 </ul>
-<p>To install,:</p>
+<p>To install:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install django==3.1.2 celery redis django-celery-beat django-celery-results</span>
 </pre></div>
 </div>
@@ -298,9 +320,22 @@
 <blockquote>
 <div><p>If you’re working in <code class="docutils literal notranslate"><span class="pre">jupyter</span></code> (not recommended at this point in the project):<code class="docutils literal notranslate"> <span class="pre">!pip</span> <span class="pre">install</span> <span class="pre">django==3.1.2</span> <span class="pre">celery</span> <span class="pre">redis</span> <span class="pre">django-celery-beat</span> <span class="pre">django-celery-results</span></code></p>
 </div></blockquote>
+<div class="section" id="install-packages-for-the-web-scraping-portion-of-this-book">
+<span id="installs-web-scraping"></span><h3><span class="section-number">4.2.1. </span>Install Packages for the web scraping portion of this book:<a class="headerlink" href="#install-packages-for-the-web-scraping-portion-of-this-book" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">requests</span></code> <a class="reference external" href="https://requests.readthedocs.io/en/master/">docs</a> - making http requests</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">requests-html</span></code> <a class="reference external" href="https://requests.readthedocs.io/projects/requests-html/en/latest/">docs</a> - parsing HTML content</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">requests</span> <span class="n">requests</span><span class="o">-</span><span class="n">html</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>We are only using <code class="docutils literal notranslate"><span class="pre">requests-html</span></code> as an HTML parser in case you need to use a different HTML parser (ie BeautifulSoup, regular expressions, etc). <code class="docutils literal notranslate"><span class="pre">requests-html</span></code> is capable of performing an HTTP request and parsing the result.</p>
+</div></blockquote>
 <p>Now save a <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> file:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">freeze</span> <span class="o">&gt;</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
 </pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="start-django-project">
@@ -320,7 +355,23 @@
 <div><p>You may see virtual environment files and folders as well.
 <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> was created above.</p>
 </div></blockquote>
-<p>If you don’t see <code class="docutils literal notranslate"><span class="pre">manage.py</span></code> it’s probably because the command you ran was: <code class="docutils literal notranslate"><span class="pre">django-admin</span> <span class="pre">startproject</span> <span class="pre">time_tasks</span></code>.</p>
+<p>If you don’t see <code class="docutils literal notranslate"><span class="pre">manage.py</span></code> it’s probably because the command you ran was: <code class="docutils literal notranslate"><span class="pre">django-admin</span> <span class="pre">startproject</span> <span class="pre">time_tasks</span></code> without the trailing <code class="docutils literal notranslate"><span class="pre">.</span></code></p>
+</div>
+<div class="section" id="create-django-app">
+<span id="create-django-stock-app"></span><h2><span class="section-number">4.4. </span>Create Django App<a class="headerlink" href="#create-django-app" title="Permalink to this headline">¶</a></h2>
+<p>We will implement this app in a few chapters but for now, run this:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python manage.py startapp stocks</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="update-time-tasks-settings-py">
+<h2><span class="section-number">4.5. </span>Update <code class="docutils literal notranslate"><span class="pre">time_tasks/settings.py</span></code><a class="headerlink" href="#update-time-tasks-settings-py" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># time_tasks/settings.py</span>
+<span class="n">INSTALLED_APPS</span> <span class="o">+=</span> <span class="p">[</span>
+    <span class="s1">&#39;stocks,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
 </div>
 </div>
 

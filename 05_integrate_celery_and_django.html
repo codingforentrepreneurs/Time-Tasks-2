@@ -55,7 +55,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="6. Django App &amp; Model" href="06_Django_App_%26_Model.html" />
+    <link rel="next" title="6. Web Scraping Client" href="06_web_scraping_client.html" />
     <link rel="prev" title="4. Setup Project" href="04_setup_project.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -121,18 +121,18 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="06_Django_App_%26_Model.html">
-   6. Django App &amp; Model
+  <a class="reference internal" href="06_web_scraping_client.html">
+   6. Web Scraping Client
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="07_web_scraping_with_django.html">
-   7. Web Scraping in Django
+  <a class="reference internal" href="07_create_and_use_celery_tasks.html">
+   7. Create &amp; Use Celery Tasks
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="08_using_celery_tasks.html">
-   8. Using Celery Tasks
+  <a class="reference internal" href="08_Django_App_%26_Model.html">
+   8. Django  App &amp; Model
   </a>
  </li>
  <li class="toctree-l1">
@@ -240,8 +240,8 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#in-time-tasks-celery-init-py">
-   5.2. In
+  <a class="reference internal nav-link" href="#create-time-tasks-celery-init-py">
+   5.2. Create
    <code class="docutils literal notranslate">
     <span class="pre">
      time_tasks/celery/__init__.py
@@ -250,8 +250,8 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#in-time-tasks-celery-conf-py">
-   5.3. In
+  <a class="reference internal nav-link" href="#create-time-tasks-celery-conf-py">
+   5.3. Create
    <code class="docutils literal notranslate">
     <span class="pre">
      time_tasks/celery/conf.py
@@ -260,8 +260,8 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#in-time-tasks-init-py">
-   5.4. In
+  <a class="reference internal nav-link" href="#update-time-tasks-init-py">
+   5.4. Update
    <code class="docutils literal notranslate">
     <span class="pre">
      time_tasks/__init__.py
@@ -270,8 +270,8 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#in-time-tasks-settings-py">
-   5.5. In
+  <a class="reference internal nav-link" href="#update-time-tasks-settings-py">
+   5.5. Update
    <code class="docutils literal notranslate">
     <span class="pre">
      time_tasks/settings.py
@@ -301,9 +301,10 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="in-time-tasks-celery-init-py">
-<h2><span class="section-number">5.2. </span>In <code class="docutils literal notranslate"><span class="pre">time_tasks/celery/__init__.py</span></code><a class="headerlink" href="#in-time-tasks-celery-init-py" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<div class="section" id="create-time-tasks-celery-init-py">
+<h2><span class="section-number">5.2. </span>Create <code class="docutils literal notranslate"><span class="pre">time_tasks/celery/__init__.py</span></code><a class="headerlink" href="#create-time-tasks-celery-init-py" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># time_tasks/celery/__init__.py</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
 <span class="kn">from</span> <span class="nn">celery</span> <span class="kn">import</span> <span class="n">Celery</span>
@@ -336,17 +337,20 @@
 <div><p>The <code class="docutils literal notranslate"><span class="pre">time_tasks.settings</span></code> in <code class="docutils literal notranslate"><span class="pre">os.environ.setdefault('DJANGO_SETTINGS_MODULE',</span> <span class="pre">'time_tasks.settings')</span></code> is also set in <code class="docutils literal notranslate"><span class="pre">manage.py</span></code> so, when in doubt, use the value in <code class="docutils literal notranslate"><span class="pre">manage.py</span></code> for your project. This is for our <code class="docutils literal notranslate"><span class="pre">celery</span></code> worker process. My Django project name is <code class="docutils literal notranslate"><span class="pre">time_tasks</span></code> so I use it for celery as well with <code class="docutils literal notranslate"><span class="pre">app</span> <span class="pre">=</span> <span class="pre">Celery('time_tasks')</span></code>.</p>
 </div></blockquote>
 </div>
-<div class="section" id="in-time-tasks-celery-conf-py">
-<h2><span class="section-number">5.3. </span>In <code class="docutils literal notranslate"><span class="pre">time_tasks/celery/conf.py</span></code><a class="headerlink" href="#in-time-tasks-celery-conf-py" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># This sets the django-celery-results backend</span>
+<div class="section" id="create-time-tasks-celery-conf-py">
+<h2><span class="section-number">5.3. </span>Create <code class="docutils literal notranslate"><span class="pre">time_tasks/celery/conf.py</span></code><a class="headerlink" href="#create-time-tasks-celery-conf-py" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># time_tasks/celery/conf.py</span>
+
+<span class="c1"># This sets the django-celery-results backend</span>
 <span class="n">CELERY_RESULT_BACKEND</span> <span class="o">=</span> <span class="s1">&#39;django-db&#39;</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="in-time-tasks-init-py">
-<h2><span class="section-number">5.4. </span>In <code class="docutils literal notranslate"><span class="pre">time_tasks/__init__.py</span></code><a class="headerlink" href="#in-time-tasks-init-py" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="update-time-tasks-init-py">
+<h2><span class="section-number">5.4. </span>Update <code class="docutils literal notranslate"><span class="pre">time_tasks/__init__.py</span></code><a class="headerlink" href="#update-time-tasks-init-py" title="Permalink to this headline">¶</a></h2>
 <p>This file is next to <code class="docutils literal notranslate"><span class="pre">settings.py</span></code> and the <code class="docutils literal notranslate"><span class="pre">time_tasks/celery</span></code> folder created above.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># time_tasks/__init__.py</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
 
 <span class="c1"># This will make sure the app is always imported when</span>
 <span class="c1"># Django starts so that shared_task will use this app.</span>
@@ -356,14 +360,19 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="in-time-tasks-settings-py">
-<h2><span class="section-number">5.5. </span>In <code class="docutils literal notranslate"><span class="pre">time_tasks/settings.py</span></code><a class="headerlink" href="#in-time-tasks-settings-py" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">INSTALLED_APPS</span> <span class="o">+=</span> <span class="p">[</span>
+<div class="section" id="update-time-tasks-settings-py">
+<h2><span class="section-number">5.5. </span>Update <code class="docutils literal notranslate"><span class="pre">time_tasks/settings.py</span></code><a class="headerlink" href="#update-time-tasks-settings-py" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># time_tasks/settings.py</span>
+<span class="n">INSTALLED_APPS</span> <span class="o">+=</span> <span class="p">[</span>
     <span class="s1">&#39;django_celery_beat,</span>
     <span class="s1">&#39;django_celery_results,</span>
 <span class="p">]</span>
 
 <span class="kn">from</span> <span class="nn">.celery.conf</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<p>Now run:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python manage.py migrate</span>
 </pre></div>
 </div>
 </div>
@@ -398,7 +407,7 @@
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="04_setup_project.html" title="previous page"><span class="section-number">4. </span>Setup Project</a>
-    <a class='right-next' id="next-link" href="06_Django_App_%26_Model.html" title="next page"><span class="section-number">6. </span>Django App &amp; Model</a>
+    <a class='right-next' id="next-link" href="06_web_scraping_client.html" title="next page"><span class="section-number">6. </span>Web Scraping Client</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

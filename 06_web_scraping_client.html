@@ -1,0 +1,446 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>6. Web Scraping Client &#8212; Time &amp; Tasks 2</title>
+    
+  <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="7. Create &amp; Use Celery Tasks" href="07_create_and_use_celery_tasks.html" />
+    <link rel="prev" title="5. Integrate Celery &amp; Django" href="05_integrate_celery_and_django.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  
+  <h1 class="site-logo" id="site-title">Time & Tasks 2</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Welcome.html">
+   Welcome to Time &amp; Tasks 2
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_start_here.html">
+   1. Start Here
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_installations.html">
+   2. Python &amp; Virtual Environments
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03_install_redis.html">
+   3. Install Redis
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04_setup_project.html">
+   4. Setup Project
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05_integrate_celery_and_django.html">
+   5. Integrate Celery &amp; Django
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   6. Web Scraping Client
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07_create_and_use_celery_tasks.html">
+   7. Create &amp; Use Celery Tasks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="08_Django_App_%26_Model.html">
+   8. Django  App &amp; Model
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09_scheduling_tasks_in_django.html">
+   9. Scheduling Tasks in Django
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/06_web_scraping_client.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/06_web_scraping_client.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/06_web_scraping_client.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#stocks-app">
+   6.1. Stocks app
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#additional-installations">
+   6.2. Additional Installations:
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#stocks-scraper-py">
+   6.3.
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     stocks.scraper.py
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#reference-companies-their-stock-symbols">
+     6.3.1. Reference Companies &amp; their Stock Symbols
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="web-scraping-client">
+<h1><span class="section-number">6. </span>Web Scraping Client<a class="headerlink" href="#web-scraping-client" title="Permalink to this headline">¶</a></h1>
+<p>Below is a simple web scraping client that will extract a public company’s current stock price. The scraper is not meant to be sophisticated; it merely exists to highlight some of the amazing features of using Django with Celery &amp; Redis.</p>
+<p>If you’re interested in doing real-time stock monitoring, the below web scraping client <em>is not for you</em>. There are a plethora of companies that offer real-time APIs for monitoring the stock market.</p>
+<div class="section" id="stocks-app">
+<h2><span class="section-number">6.1. </span>Stocks app<a class="headerlink" href="#stocks-app" title="Permalink to this headline">¶</a></h2>
+<p>In <a class="reference internal" href="04_setup_project.html#create-django-stock-app"><span class="std std-ref">Create Django App</span></a>, we started our <code class="docutils literal notranslate"><span class="pre">stocks</span></code> app with the following:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python manage.py startapp stocks</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Do this now if you haven’t already.</p>
+</div></blockquote>
+</div>
+<div class="section" id="additional-installations">
+<h2><span class="section-number">6.2. </span>Additional Installations:<a class="headerlink" href="#additional-installations" title="Permalink to this headline">¶</a></h2>
+<p>In <a class="reference internal" href="04_setup_project.html#installs-web-scraping"><span class="std std-ref">Install Packages for the web scraping portion of this book:</span></a>, we already installed this requirements. Do it now if you didn’t already.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">requests</span> <span class="n">requests</span><span class="o">-</span><span class="n">html</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="stocks-scraper-py">
+<h2><span class="section-number">6.3. </span><code class="docutils literal notranslate"><span class="pre">stocks.scraper.py</span></code><a class="headerlink" href="#stocks-scraper-py" title="Permalink to this headline">¶</a></h2>
+<p>Create <code class="docutils literal notranslate"><span class="pre">scraper.py</span></code> in the <code class="docutils literal notranslate"><span class="pre">stocks</span></code> app for our scraper client. As you see below, there’s a few service options that were working at the time of writing. The <code class="docutils literal notranslate"><span class="pre">echo</span></code> service is merely there to ensure the rest of our app is working even if our scraper is not.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># stocks/scraper.py</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">requests_html</span> <span class="kn">import</span> <span class="n">HTML</span>
+
+
+<span class="n">SERVICES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;business_insider&quot;</span><span class="p">:</span> <span class="s2">&quot;https://markets.businessinsider.com/stocks/</span><span class="si">{ticker}</span><span class="s2">-stock&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;google_finance&quot;</span><span class="p">:</span> <span class="s2">&quot;https://www.google.com/finance/quote/</span><span class="si">{ticker}</span><span class="s2">:NASDAQ&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;echo&quot;</span><span class="p">:</span> <span class="s2">&quot;https://www.httpbin.org/anything/</span><span class="si">{ticker}</span><span class="s2">&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">StockTickerScraper</span><span class="p">:</span>        
+    <span class="sd">&#39;&#39;&#39;</span>
+
+<span class="sd">    Usage:</span>
+
+<span class="sd">    StockTickerScraper(service=&#39;echo&#39;, ticker=&#39;AAPL&#39;).scrape()</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">service</span> <span class="o">=</span> <span class="s1">&#39;echo&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">ticker</span> <span class="o">=</span> <span class="s2">&quot;AAPL&quot;</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="s1">&#39;echo&#39;</span><span class="p">,</span> <span class="n">ticker</span><span class="o">=</span><span class="s2">&quot;AAPL&quot;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">service</span> <span class="o">=</span> <span class="n">service</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">SERVICES</span><span class="p">[</span><span class="n">service</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ticker</span> <span class="o">=</span> <span class="n">ticker</span> 
+    
+    <span class="k">def</span> <span class="nf">scrape_business_insider</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Perform web scraping on markets.businessinsider.com/stocks</span>
+<span class="sd">        Exract ticker&#39;s current price and name.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">url</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="n">html</span> <span class="o">=</span> <span class="n">HTML</span><span class="p">(</span><span class="n">html</span><span class="o">=</span><span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;.price-section__label&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">text</span>
+        <span class="n">price</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;.price-section__current-value&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">text</span>
+        <span class="k">return</span> <span class="n">name</span><span class="p">,</span> <span class="n">price</span>
+    
+    <span class="k">def</span> <span class="nf">scrape_google_finance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Perform web scraping on google.com/finance</span>
+<span class="sd">        Exract ticker&#39;s current price and name.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">url</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="n">html</span> <span class="o">=</span> <span class="n">HTML</span><span class="p">(</span><span class="n">html</span><span class="o">=</span><span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;.KY7mAb&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span>
+        <span class="n">price</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;.kf1m0&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span>
+        <span class="k">return</span> <span class="n">name</span><span class="p">,</span> <span class="n">price</span>
+    
+    <span class="k">def</span> <span class="nf">scrape_echo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Fallback method if the above two stop working.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">random_price</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%.2f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">12000</span><span class="p">)</span> <span class="o">/</span> <span class="mf">100.00</span><span class="p">)</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;ticker&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ticker</span><span class="p">,</span> <span class="s2">&quot;price&quot;</span><span class="p">:</span> <span class="n">random_price</span><span class="p">})</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ticker&#39;</span><span class="p">),</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;price&quot;</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">scrape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ticker</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">to_scrape_ticker</span> <span class="o">=</span> <span class="n">ticker</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">ticker</span>
+        <span class="k">if</span> <span class="n">to_scrape_ticker</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">to_scrape_ticker</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ticker</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ticker</span><span class="o">=</span><span class="n">to_scrape_ticker</span><span class="p">)</span>
+        <span class="n">func</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;scrape_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">service</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">name</span><span class="p">,</span> <span class="n">price</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">name</span><span class="p">,</span> <span class="n">price</span>
+
+</pre></div>
+</div>
+<div class="section" id="reference-companies-their-stock-symbols">
+<h3><span class="section-number">6.3.1. </span>Reference Companies &amp; their Stock Symbols<a class="headerlink" href="#reference-companies-their-stock-symbols" title="Permalink to this headline">¶</a></h3>
+<p>A few reference companies are:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">companies</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s2">&quot;Apple Inc.&quot;</span><span class="p">,</span> <span class="s2">&quot;ticker_symbol&quot;</span><span class="p">:</span> <span class="s2">&quot;APPL&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s2">&quot;Alphabet C&quot;</span><span class="p">,</span> <span class="s2">&quot;ticker_symbol&quot;</span><span class="p">:</span> <span class="s2">&quot;GOOG&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s2">&quot;Amazon&quot;</span><span class="p">,</span> <span class="s2">&quot;ticker_symbol&quot;</span><span class="p">:</span> <span class="s2">&quot;AMZN&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s2">&quot;Microsoft Corp&quot;</span><span class="p">,</span> <span class="s2">&quot;ticker_symbol&quot;</span><span class="p">:</span> <span class="s2">&quot;MSFT&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s2">&quot;Tesla&quot;</span><span class="p">,</span> <span class="s2">&quot;ticker_symbol&quot;</span><span class="p">:</span> <span class="s2">&quot;TSLA&quot;</span><span class="p">},</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="05_integrate_celery_and_django.html" title="previous page"><span class="section-number">5. </span>Integrate Celery &amp; Django</a>
+    <a class='right-next' id="next-link" href="07_create_and_use_celery_tasks.html" title="next page"><span class="section-number">7. </span>Create &amp; Use Celery Tasks</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Justin Mitchel<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

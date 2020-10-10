@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>7. Web Scraping in Django &#8212; Time &amp; Tasks 2</title>
+    <title>8. Django App &amp; Model &#8212; Time &amp; Tasks 2</title>
     
   <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -55,8 +55,8 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="8. Using Celery Tasks" href="08_using_celery_tasks.html" />
-    <link rel="prev" title="6. Django App &amp; Model" href="06_Django_App_%26_Model.html" />
+    <link rel="next" title="9. Scheduling Tasks in Django" href="09_scheduling_tasks_in_django.html" />
+    <link rel="prev" title="7. Create &amp; Use Celery Tasks" href="07_create_and_use_celery_tasks.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -121,18 +121,18 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="06_Django_App_%26_Model.html">
-   6. Django App &amp; Model
+  <a class="reference internal" href="06_web_scraping_client.html">
+   6. Web Scraping Client
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07_create_and_use_celery_tasks.html">
+   7. Create &amp; Use Celery Tasks
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   7. Web Scraping in Django
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="08_using_celery_tasks.html">
-   8. Using Celery Tasks
+   8. Django  App &amp; Model
   </a>
  </li>
  <li class="toctree-l1">
@@ -182,7 +182,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/07_web_scraping_with_django.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="_sources/08_Django_App_&_Model.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -207,7 +207,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/07_web_scraping_with_django.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/08_Django_App_&_Model.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="_static/images/logo_binder.svg"
@@ -215,7 +215,7 @@
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/07_web_scraping_with_django.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/08_Django_App_&_Model.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -229,6 +229,30 @@
     <!-- Table of contents -->
     <div class="d-none d-md-block col-md-2 bd-toc show">
         
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#stocks-app">
+   8.1. Stocks app
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#stocks-models-py">
+   8.2.
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     stocks/models.py
+    </span>
+   </code>
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
     </div>
 </div>
     <div id="main-content" class="row">
@@ -236,9 +260,50 @@
         
               <div>
                 
-  <div class="section" id="web-scraping-in-django">
-<h1><span class="section-number">7. </span>Web Scraping in Django<a class="headerlink" href="#web-scraping-in-django" title="Permalink to this headline">¶</a></h1>
-<p>Run web-scraping tasks on-demand and in a schedule.</p>
+  <div class="section" id="django-app-model">
+<h1><span class="section-number">8. </span>Django  App &amp; Model<a class="headerlink" href="#django-app-model" title="Permalink to this headline">¶</a></h1>
+<p>For this Django project, we’re going to be performing scheduled web scraping events. This chaper is all about creating our first Django app without any additional integrations.</p>
+<div class="section" id="stocks-app">
+<h2><span class="section-number">8.1. </span>Stocks app<a class="headerlink" href="#stocks-app" title="Permalink to this headline">¶</a></h2>
+<p>In <a class="reference internal" href="04_setup_project.html#create-django-stock-app"><span class="std std-ref">Create Django App</span></a>, we started our <code class="docutils literal notranslate"><span class="pre">stocks</span></code> app with the following:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python manage.py startapp stocks</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Do this now if you haven’t already.</p>
+</div></blockquote>
+</div>
+<div class="section" id="stocks-models-py">
+<h2><span class="section-number">8.2. </span><code class="docutils literal notranslate"><span class="pre">stocks/models.py</span></code><a class="headerlink" href="#stocks-models-py" title="Permalink to this headline">¶</a></h2>
+<p>Eventually, we’ll have celery and django work in concert by web scraping stock market prices for major public companies in the United States.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># stocks/models.py</span>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+
+
+<span class="n">STOCK_MARKET_LOOKUP_SOURCES</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="s1">&#39;business_insider&#39;</span><span class="p">,</span> <span class="s2">&quot;Business Insider Markets&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;google_finance&#39;</span><span class="p">,</span> <span class="s2">&quot;Google Finance&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;echo&#39;</span><span class="p">,</span> <span class="s2">&quot;HTTPbin Echo&quot;</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Company</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">120</span><span class="p">)</span>
+    <span class="n">ticker</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">active</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">timestamp</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">updated</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">PriceEvent</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">company</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Company</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">SET_NULL</span><span class="p">)</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s1">&#39;Company Name&#39;</span><span class="p">)</span>
+    <span class="n">price</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DecimalField</span><span class="p">(</span><span class="n">max_digits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">decimal_places</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">source</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">STOCK_MARKET_LOOKUP_SOURCES</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;echo&#39;</span><span class="p">)</span>
+    <span class="n">timestamp</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -269,8 +334,8 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="06_Django_App_%26_Model.html" title="previous page"><span class="section-number">6. </span>Django App &amp; Model</a>
-    <a class='right-next' id="next-link" href="08_using_celery_tasks.html" title="next page"><span class="section-number">8. </span>Using Celery Tasks</a>
+    <a class='left-prev' id="prev-link" href="07_create_and_use_celery_tasks.html" title="previous page"><span class="section-number">7. </span>Create &amp; Use Celery Tasks</a>
+    <a class='right-next' id="next-link" href="09_scheduling_tasks_in_django.html" title="next page"><span class="section-number">9. </span>Scheduling Tasks in Django</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
