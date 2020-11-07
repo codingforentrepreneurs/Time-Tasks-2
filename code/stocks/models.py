@@ -1,7 +1,7 @@
 from django.db import models
 from django.db.models.signals import post_save, pre_save
 
-from .tasks import perform_scrape, company_price_scrape_task
+from .tasks import perform_scrape, company_granular_price_scrape_task
 
 STOCK_MARKET_LOOKUP_SOURCES = (
     ('business_insider', 'Business Insider Markets'),
@@ -15,13 +15,14 @@ class Company(models.Model):
     description = models.TextField(blank=True,null=True)
     active = models.BooleanField(default=True)
     timestamp = models.DateTimeField(auto_now_add=True)
+    has_granular_scraping = models.BooleanField(default=False)
     one_off_scrape = models.BooleanField(default=False)
     # default_service
     # events per minute
 
     def scrape(self, service='business_insider'):
-        return company_price_scrape_task.delay(self.id, service='business_insider')
-
+        return company_granular_price_scrape_task.delay(self.id, service='business_insider')
+    
     def __str__(self):
         return f"{self.name} ({self.ticker})"
     

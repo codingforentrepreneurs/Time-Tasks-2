@@ -1,3 +1,4 @@
+import datetime
 import time
 from celery import shared_task
 from django.apps import apps
@@ -31,3 +32,22 @@ def company_price_scrape_task(instance_id, service='echo'):
     obj = Company.objects.get(id=instance_id)
     ticker = obj.ticker
     perform_scrape(ticker=ticker, service=service)
+
+
+@shared_task
+def company_granular_price_scrape_task(instance_id, service='echo'):
+    """
+    Perform company price scraping event.
+    """
+    Company = apps.get_model("stocks", "Company")
+    obj = Company.objects.get(id=instance_id)
+    ticker = obj.ticker
+    perform_scrape(ticker=ticker, service=service)
+    if obj.has_granular_scraping:
+        now = datetime.datetime.now()
+        expires = now + datetime.timedelta(seconds=65)
+        for i in range(1, 60): # 1 - 59
+            perform_scrape.apply_async(kwargs={
+                "ticker": ticker,
+                "service": service
+            }, countdown=i, expires=expires)

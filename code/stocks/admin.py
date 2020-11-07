@@ -9,7 +9,7 @@ class PriceLookupEventAdmin(admin.TabularInline):
     extra = 0
 
 class CompanyAdmin(admin.ModelAdmin):
-    inlines = [PriceLookupEventAdmin]
+    # inlines = [PriceLookupEventAdmin]
     class Meta:
         model = Company
 
