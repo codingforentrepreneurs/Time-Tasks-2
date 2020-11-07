@@ -27,3 +27,13 @@ app.conf.broker_url = BASE_REDIS_URL
 
 # this allows you to schedule items in the Django admin.
 app.conf.beat_scheduler = 'django_celery_beat.schedulers.DatabaseScheduler'
+
+
+# app.conf.beat_schedule = {
+#     # Executes every Monday morning at 7:30 a.m.
+#     'add-every-monday-morning': {
+#         'task': 'stocks.tasks.perform_scrape',
+#         'schedule': crontab(hour=7, minute=30, day_of_week=1),
+#         'kwargs': {"ticker": "GOOG", "service": "business_insider"},
+#     },
+# }

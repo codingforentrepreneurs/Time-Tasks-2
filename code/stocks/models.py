@@ -1,5 +1,7 @@
 from django.db import models
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_save
+
+from .tasks import perform_scrape, company_price_scrape_task
 
 STOCK_MARKET_LOOKUP_SOURCES = (
     ('business_insider', 'Business Insider Markets'),
@@ -13,6 +15,12 @@ class Company(models.Model):
     description = models.TextField(blank=True,null=True)
     active = models.BooleanField(default=True)
     timestamp = models.DateTimeField(auto_now_add=True)
+    one_off_scrape = models.BooleanField(default=False)
+    # default_service
+    # events per minute
+
+    def scrape(self, service='business_insider'):
+        return company_price_scrape_task.delay(self.id, service='business_insider')
 
     def __str__(self):
         return f"{self.name} ({self.ticker})"
@@ -21,6 +29,15 @@ class Company(models.Model):
         ordering = ['name']
         verbose_name = 'Company'
         verbose_name_plural = 'Companies'
+
+
+def company_pre_save(sender, instance, *args, **kwargs):
+    if instance.id:
+        if instance.one_off_scrape:
+            instance.one_off_scrape = False
+            instance.scrape()
+
+pre_save.connect(company_pre_save, sender=Company)
 
 
 class PriceLookupEventManager(models.Manager):
@@ -33,7 +50,7 @@ class PriceLookupEventManager(models.Manager):
         except:
             company_obj = None
         obj = self.model(ticker=ticker, price=price, name=name, source=source)
-        obj.company = company
+        obj.company = company_obj
         obj.save()
         return obj
 
@@ -46,6 +63,8 @@ class PriceLookupEvent(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
 
     objects = PriceLookupEventManager()
+
+
 
 
 # def price_event_post_save(sender, instance, created, *args, **kwargs):
