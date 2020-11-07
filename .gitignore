@@ -1,3 +1,4 @@
+celerybeat-schedule.db
 Pipfile.lock
 nbs/_build
 book/
