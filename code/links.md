@@ -1,0 +1,6 @@
+- [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cl)
+- [Stage Django for Production](https://www.codingforentrepreneurs.com/blog/staging-django-production-development)
+- [Celery + Redis + Django Setup Guide](https://www.codingforentrepreneurs.com/blog/celery-redis-django/)
+- [Go Live with Django & Heroku](https://www.codingforentrepreneurs.com/blog/go-live-with-django-project-and-heroku)
+- [SSL/TLS Settings for Django](https://www.codingforentrepreneurs.com/blog/ssltls-settings-for-django/)
+- [Create a One-Off Django Secret Key](https://www.codingforentrepreneurs.com/blog/create-a-one-off-django-secret-key)

@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,12 +20,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '&=th!0qi1q85ge%@7@$n&4sbvl!u*e^y$_bsddksk29qh#w#s#'
+SECRET_KEY = os.environ.get('SECRET_KEY', '&=th!0qi1q85ge%@7@$n&4sbvl!u*e^y$_bsddksk29qh#w#s#')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("IS_PROD") != "true" # IS_PROD = FALSE
+print("DEBUG", DEBUG)
+ALLOWED_HOSTS = ['cfe-time-tasks.herokuapp.com', '.cfe.sh']
 
-ALLOWED_HOSTS = []
+if DEBUG:
+    ALLOWED_HOSTS.append('127.0.0.1')
 
 
 # Application definition
@@ -84,7 +87,11 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
+if not DEBUG:
+    import dj_database_url
+    db_from_env = dj_database_url.config() # DATABASE_URL
+    DATABASES['default'].update(db_from_env)
+    DATABASES['default']['CONN_MAX_AGE'] = 500
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators

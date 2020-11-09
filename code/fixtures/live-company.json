@@ -1,0 +1,77 @@
+[
+{
+    "model": "stocks.company",
+    "pk": 1,
+    "fields": {
+        "periodic_task": 13,
+        "name": "Apple",
+        "ticker": "aapl",
+        "description": "",
+        "active": true,
+        "timestamp": "2020-11-04T23:41:52.506Z",
+        "scraping_scheduler_enabled": true,
+        "has_granular_scraping": false,
+        "one_off_scrape": false
+    }
+},
+{
+    "model": "stocks.company",
+    "pk": 2,
+    "fields": {
+        "periodic_task": 14,
+        "name": "Google",
+        "ticker": "GOOG",
+        "description": "",
+        "active": true,
+        "timestamp": "2020-11-04T23:44:02.972Z",
+        "scraping_scheduler_enabled": true,
+        "has_granular_scraping": false,
+        "one_off_scrape": false
+    }
+},
+{
+    "model": "stocks.company",
+    "pk": 3,
+    "fields": {
+        "periodic_task": 12,
+        "name": "Amazon",
+        "ticker": "AMZN",
+        "description": "",
+        "active": true,
+        "timestamp": "2020-11-04T23:44:17.537Z",
+        "scraping_scheduler_enabled": true,
+        "has_granular_scraping": true,
+        "one_off_scrape": false
+    }
+},
+{
+    "model": "stocks.company",
+    "pk": 4,
+    "fields": {
+        "periodic_task": 15,
+        "name": "Tesla",
+        "ticker": "tsla",
+        "description": "",
+        "active": true,
+        "timestamp": "2020-11-07T22:34:15.693Z",
+        "scraping_scheduler_enabled": true,
+        "has_granular_scraping": true,
+        "one_off_scrape": false
+    }
+},
+{
+    "model": "stocks.company",
+    "pk": 5,
+    "fields": {
+        "periodic_task": 17,
+        "name": "Microsoft",
+        "ticker": "msft",
+        "description": "",
+        "active": true,
+        "timestamp": "2020-11-07T22:36:05.491Z",
+        "scraping_scheduler_enabled": true,
+        "has_granular_scraping": false,
+        "one_off_scrape": false
+    }
+}
+]
